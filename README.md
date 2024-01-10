@@ -65,11 +65,7 @@ Detail the main functions and classes offered by your library. For example:
 - `create_deck()`: Generates a new deck of poker cards.
 - `deal_conflict_hands(deck, num_players)`: Deals hands to players based on the number of players.
 
-## Contribution
-Encourage other developers to contribute to your project and explain how to do so.
-
 ## License
-Specify the license for your project. For example, if you're using the MIT License:
 ```plaintext
 Copyright (c) 2024 CHIEH-WEN YANG
 
