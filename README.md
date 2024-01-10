@@ -14,21 +14,50 @@ Instructions on how to install your library. For example:
 pip install holdemhandwizard
 ```
 
-## Quick Start
-Provide a simple example to demonstrate how to use your library. For instance:
+## Quick Start Example
+
+Below is an example script demonstrating how to use the HoldemHandWizard library to simulate a Texas Hold'em poker game and calculate the hand entry rates for players.
+
 ```python
-from holdemhandwizard import TexasHoldemLibrary
+# Import the HoldemHandWizard library
+from holdem_hand_wizard import HoldemHandWizard
 
-# Create an instance of the library
-poker_lib = TexasHoldemLibrary()
+def test_poker_algorithm(num_players, num_simulations=1000):
+    # Create an instance of the library
+    texas_holdem_lib = HoldemHandWizard()
 
-# Generate a deck of cards
-deck = poker_lib.create_deck()
+    # Calculate the conflict probability based on the number of players
+    conflict_probability = texas_holdem_lib.calculate_conflict_probability(num_players)
 
-# Simulate a round of the game
-player_hands = poker_lib.deal_conflict_hands(deck, 5)
-for hand in player_hands:
-    print(hand, poker_lib.classify_hand(hand))
+    # Initialize a list to count the number of times each player enters the pool
+    entry_counts = [0] * num_players
+
+    # Simulate the specified number of poker games
+    for _ in range(num_simulations):
+        # Generate a new deck of cards
+        deck = texas_holdem_lib.create_deck()
+
+        # Deal hands to players considering potential conflicts
+        player_hands = texas_holdem_lib.deal_conflict_hands(deck, conflict_probability, num_players)
+
+        # Deal community cards
+        community_cards = texas_holdem_lib.deal_community_cards(deck)
+
+        # Determine whether each hand should enter the pool
+        for hand in player_hands:
+            if texas_holdem_lib.should_enter_pool(hand):
+                # Increment the entry count for the player
+                entry_counts[player_hands.index(hand)] += 1
+
+    # Print the entry rates for each player
+    print("\nEntry rates for each player:")
+    for i, count in enumerate(entry_counts, start=1):
+        rate_percent = (count / num_simulations) * 100
+        print(f"Player {i}: {rate_percent:.2f}%")
+
+# Run the test with 9 players and 100 simulations
+if __name__ == "__main__":
+    test_poker_algorithm(9, 100)
 ```
 
 ## API Reference
