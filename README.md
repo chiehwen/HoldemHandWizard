@@ -9,7 +9,6 @@ HoldemHandWizard is a library designed for controlling the probability of hand c
 - Flexible hand scoring system supporting various hand types.
 
 ## Installation
-Instructions on how to install your library. For example:
 ```bash
 pip install holdemhandwizard
 ```
@@ -61,9 +60,105 @@ if __name__ == "__main__":
 ```
 
 ## API Reference
-Detail the main functions and classes offered by your library. For example:
-- `create_deck()`: Generates a new deck of poker cards.
-- `deal_conflict_hands(deck, num_players)`: Deals hands to players based on the number of players.
+
+This section provides detailed information about the key functionalities available in the HoldemHandWizard library.
+
+### HoldemHandWizard
+
+A class that encapsulates all the functionalities of the Texas Hold'em hand conflict management.
+
+#### `__init__(self)`
+
+Constructor for the HoldemHandWizard class. Initializes the deck and sets default values for various parameters.
+
+#### `create_deck(self)`
+
+Generates and returns a new deck of standard Texas Hold'em playing cards.
+
+- **Returns**: A list of tuples, each representing a card. For example, `('A', 'Hearts')`.
+
+#### `rank_to_value(self, rank)`
+
+Converts a card rank to its corresponding numerical value.
+
+- **Parameters**:
+  - `rank` (str): The rank of the card (e.g., 'A', 'K', 'Q', '2', ...).
+- **Returns**: Integer value corresponding to the given rank.
+
+#### `is_straight(self, ranks)`
+
+Determines whether a given set of card ranks forms a straight.
+
+- **Parameters**:
+  - `ranks` (list): A list of card ranks.
+- **Returns**: `True` if the ranks form a straight, `False` otherwise.
+
+#### `is_flush(self, suits)`
+
+Determines whether a given set of card suits forms a flush.
+
+- **Parameters**:
+  - `suits` (list): A list of card suits.
+- **Returns**: `True` if the suits form a flush, `False` otherwise.
+
+#### `classify_hand(self, hand)`
+
+Classifies a given poker hand and assigns it a rank based on Texas Hold'em rules.
+
+- **Parameters**:
+  - `hand` (list): A list of tuples representing a poker hand.
+- **Returns**: A tuple containing the name of the hand type and its rank.
+
+#### `calculate_conflict_probability(self, num_players)`
+
+Calculates the probability of a conflict occurring based on the number of players.
+
+- **Parameters**:
+  - `num_players` (int): The number of players in the game.
+- **Returns**: A float representing the conflict probability.
+
+#### `select_conflict_type(self)`
+
+Randomly selects a type of hand conflict.
+
+- **Returns**: A string representing the selected conflict type.
+
+#### `deal_conflict_hand(self, deck, conflict_type, ranks, suits)`
+
+Deals a hand of cards based on the specified conflict type.
+
+- **Parameters**:
+  - `deck` (list): The deck of cards.
+  - `conflict_type` (str): The type of conflict to simulate.
+  - `ranks` (list): The list of card ranks.
+  - `suits` (list): The list of card suits.
+- **Returns**: A list of tuples representing the dealt hand.
+
+#### `deal_conflict_hands(self, deck, conflict_probability, num_players)`
+
+Deals hands to each player, considering potential conflicts.
+
+- **Parameters**:
+  - `deck` (list): The deck of cards.
+  - `conflict_probability` (float): The probability of a conflict occurring.
+  - `num_players` (int): The number of players.
+- **Returns**: A list of hands, each hand is a list of card tuples.
+
+#### `deal_community_cards(self, deck)`
+
+Deals and returns community cards for the round.
+
+- **Parameters**:
+  - `deck` (list): The deck of cards.
+- **Returns**: A list of tuples representing the community cards.
+
+#### `should_enter_pool(self, hand)`
+
+Determines if a given hand should enter the betting pool based on its strength.
+
+- **Parameters**:
+  - `hand` (list): A list of tuples representing a poker hand.
+- **Returns**: `True` if the hand should enter the pool, `False` otherwise.
 
 ## License
 ```plaintext
